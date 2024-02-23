@@ -58,8 +58,8 @@ class FoodController extends AbstractController
         $food = $this->repository->findOneBy(['id' => $id]);
 
         if (!$food) {
-            throw $this->createNotFoundException("No Food found for {$id} id");
-            // throw new \Exception(message: "No food found for {$id} id");
+            // throw $this->createNotFoundException("No Food found for {$id} id");
+            throw new \Exception(message: "No food found for {$id} id");
         }
 
         return $this->json(
@@ -73,8 +73,8 @@ class FoodController extends AbstractController
     {
         $food = $this->repository->findOneBy(['id' => $id]);
         if (!$food) {
-            throw $this->createNotFoundException("No Food found for {$id} id");
-            // throw new \Exception(message: "No Food found for {$id} id");
+            // throw $this->createNotFoundException("No Food found for {$id} id");
+            throw new \Exception(message: "No Food found for {$id} id");
         }
 
         $food->setTitle('Food name updated');
@@ -92,8 +92,8 @@ class FoodController extends AbstractController
     {
         $food = $this->repository->findOneBy(['id' => $id]);
         if (!$food) {
-            throw $this->createNotFoundException("No Food found for {$id} id");
-            // throw new \Exception(message: "No Food found for {$id} id");
+            // throw $this->createNotFoundException("No Food found for {$id} id");
+            throw new \Exception(message: "No Food found for {$id} id");
         }
 
         $this->manager->remove($food);

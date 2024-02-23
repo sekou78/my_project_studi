@@ -13,15 +13,6 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('api/category', name: 'app_api_category_')]
 class CategoryController extends AbstractController
 {
-    // #[Route('/category', name: 'app_category')]
-    // public function index(): Response
-    // {
-    //     return $this->render('category/index.html.twig', [
-    //         'controller_name' => 'CategoryController',
-    //     ]);
-    // }
-
-
     public function __construct(private EntityManagerInterface $manager, private CategoryRepository $repository)
     {
     }
@@ -31,13 +22,13 @@ class CategoryController extends AbstractController
     //fonction Create (crée)
     public function new(): Response
     {
-        $category = new Category();
-        $category->setTitle(title: 'Fakoye');
+        $category = new category();
+        $category->setTitle(title: 'Plats');
         $category->setCreatedAt(new \DateTimeImmutable());
 
         //A stocker en BDD
-        // Tell Doctrine you want to (eventually) save the food (no queries yet)
-        // Dites à Doctrine que vous souhaitez (éventuellement) sauver le plat (aucune requête pour l'instant)
+        // Tell Doctrine you want to (eventually) save the restaurant (no queries yet)
+        // Dites à Doctrine que vous souhaitez (éventuellement) sauver le restaurant (aucune requête pour l'instant)
         $this->manager->persist($category);
 
         // Actually executes the queries (i.e. the INSERT query)
@@ -53,12 +44,12 @@ class CategoryController extends AbstractController
     #[Route('/{id}', name: 'show', methods: 'GET')]
     public function show(int $id): Response  //fonction Read (lire)
     {
-        //Chercher food {id} = 1
+        //Chercher restaurant {id} = 1
         $category = $this->repository->findOneBy(['id' => $id]);
 
         if (!$category) {
             throw $this->createNotFoundException("No Category found for {$id} id");
-            // throw new \Exception(message: "No food found for {$id} id");
+            // throw new \Exception(message: "No Category found for {$id} id");
         }
 
         return $this->json(
@@ -72,8 +63,8 @@ class CategoryController extends AbstractController
     {
         $category = $this->repository->findOneBy(['id' => $id]);
         if (!$category) {
-            throw $this->createNotFoundException("No Category found for {$id} id");
-            // throw new \Exception(message: "No Food found for {$id} id");
+            // throw $this->createNotFoundException("No Category found for {$id} id");
+            throw new \Exception(message: "No Category found for {$id} id");
         }
 
         $category->setTitle('Category name updated');
@@ -91,8 +82,8 @@ class CategoryController extends AbstractController
     {
         $category = $this->repository->findOneBy(['id' => $id]);
         if (!$category) {
-            throw $this->createNotFoundException("No Category found for {$id} id");
-            // throw new \Exception(message: "No Food found for {$id} id");
+            // throw $this->createNotFoundException("No Category found for {$id} id");
+            throw new \Exception(message: "No Category found for {$id} id");
         }
 
         $this->manager->remove($category);
@@ -101,7 +92,7 @@ class CategoryController extends AbstractController
 
         return $this->json(
             ['message' => "Category resource deleted"],
-            Response::HTTP_NO_CONTENT
+            Response::HTTP_NO_CONTENT,
         );
     }
 }
