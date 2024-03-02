@@ -14,6 +14,9 @@ security:
       pattern: ^/(_(profiler|wdt)|css|images|js)/
       security: false
     main:
+      custom_authenticators:
+        - App\Security\ApiTokenAuthenticator
+      stateless: true
       lazy: true
       provider: app_user_provider
       #api_login est une route que nous allons créer ci-dessous:
@@ -31,6 +34,9 @@ security:
   access_control:
     # - { path: ^/admin, roles: ROLE_ADMIN }
     # - { path: ^/profile, roles: ROLE_USER }
+    - { path: ^/api/registration, roles: PUBLIC_ACCESS }
+    - { path: ^/api/login, roles: PUBLIC_ACCESS }
+    - { path: ^/api, roles: ROLE_USER }
 
 when@test:
   security:
