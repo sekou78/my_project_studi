@@ -29,7 +29,8 @@ class SecurityController extends AbstractController
     // }
 
     // #[Route('/registration', name: 'registration', methods: 'POST')]
-    // /** @OA\Post(
+    // /** 
+    //  *    @OA\Post(
     //  *     path="/api/registration",
     //  *     summary="Inscription d'un nouvel utilisateur",
     //  *     @OA\RequestBody(
@@ -112,7 +113,8 @@ class SecurityController extends AbstractController
     }
 
     #[Route('/registration', name: 'registration', methods: 'POST')]
-    /** @OA\Post(
+    /** 
+     * @OA\Post(
      *     path="/api/registration",
      *     summary="Inscription d'un nouvel utilisateur",
      *     @OA\RequestBody(
@@ -129,7 +131,7 @@ class SecurityController extends AbstractController
      *         description="Utilisateur inscrit avec succès",
      *         @OA\JsonContent(
      *             type="object",
-     *             @OA\Property(property="user", type="string", example="Nom d'utilisateur"),
+     *             @OA\Property(property="user", type="string", example="adresse@email.com"),
      *             @OA\Property(property="apiToken", type="string", example="31a023e212f116124a36af14ea0c1c3806eb9378"),
      *             @OA\Property(property="roles", type="array", @OA\Items(type="string", example="ROLE_USER"))
      *         )
@@ -166,6 +168,30 @@ class SecurityController extends AbstractController
 
     //Route login
     #[Route('/login', name: 'login', methods: 'POST')]
+    /** @OA\Post(
+     *     path="/api/login",
+     *     summary="Connecter un nouvel utilisateur",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         description="Données de l'utilisateur à inscrire",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="username", type="string", example="adresse@email.com"),
+     *             @OA\Property(property="password", type="string", example="Mot de passe")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Connexion reussie",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="user", type="string", example="adresse@email.com"),
+     *             @OA\Property(property="apiToken", type="string", example="31a023e212f116124a36af14ea0c1c3806eb9378"),
+     *             @OA\Property(property="roles", type="array", @OA\Items(type="string", example="ROLE_USER"))
+     *         )
+     *     )
+     * )
+     */
     public function login(#[CurrentUser] ?User $user): JsonResponse
     {
         if (null === $user) {
